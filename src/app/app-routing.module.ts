@@ -6,6 +6,10 @@ const routes: Routes = [
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home').then(m => m.HomeModule)
   }
 ]
 
