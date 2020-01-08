@@ -1,0 +1,5 @@
+$baseFontSize: 14px;
+
+@mixin fontSize($size) {
+  font-size: $size;
+}

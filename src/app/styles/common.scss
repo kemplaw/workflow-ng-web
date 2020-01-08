@@ -1,0 +1,13 @@
+@import './mixins.scss';
+
+.base-font {
+  @include fontSize($baseFontSize);
+}
+
+.medium-font {
+  @include fontSize($baseFontSize * 1.3);
+}
+
+.large-font {
+  @include fontSize($baseFontSize * 1.6);
+}
