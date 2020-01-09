@@ -1,0 +1,32 @@
+.tab-list-wrapper {
+  margin-left: -1rem;
+  margin-right: -1rem;
+}
+
+.tab-item-wrapper {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #999999;
+
+  &:hover {
+    color: #212529;
+
+    &:not(.no-border) {
+      &::after {
+        border-color: #007bff;
+      }
+    }
+  }
+  &:not(.no-border) {
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      border: 1px solid transparent;
+    }
+  }
+}

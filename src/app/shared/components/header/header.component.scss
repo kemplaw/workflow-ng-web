@@ -1,0 +1,20 @@
+.home-header-wrapper {
+  height: 48px;
+
+  .logo {
+    font-weight: bold;
+    color: #666666;
+  }
+
+  .home-header-input-wrapper {
+    width: 250px;
+  }
+
+  .avatar {
+    flex: 0 0 35px;
+    width: 35px;
+    height: 35px;
+    background-color: #e3e3e3;
+    cursor: pointer;
+  }
+}
