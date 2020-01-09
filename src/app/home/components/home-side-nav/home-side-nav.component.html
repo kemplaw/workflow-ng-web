@@ -1,0 +1,10 @@
+<div class="home-side-nav-wrapper">
+  <ul class="nav-list-wrapper">
+    <li
+      class="nav-item-wrapper"
+      *ngFor="let item of navList"
+      [class.active]="activedNav === item.type"
+      (click)="handleClick(item)"
+    >{{ item.label }}</li>
+  </ul>
+</div>

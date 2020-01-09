@@ -1,0 +1,26 @@
+@mixin high-light-effect($color) {
+  background-color: $color;
+  transition: background-color 0.3s;
+}
+
+.home-side-nav-wrapper {
+  width: 220px;
+
+  .nav-list-wrapper {
+    .nav-item-wrapper {
+      padding: 15px 20px;
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background-color 0.3s;
+
+      &:hover {
+        @include high-light-effect(#e3e3e3);
+      }
+
+      &.active {
+        @include high-light-effect(#007bff);
+        color: #ffffff;
+      }
+    }
+  }
+}

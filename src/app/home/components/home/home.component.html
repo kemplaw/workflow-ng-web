@@ -1,0 +1,18 @@
+<div class="home-container h-100 d-flex flex-column">
+  <app-home-header></app-home-header>
+  <div class="main d-flex flex-grow-1 h-100 overflow-hidden">
+    <div class="home-side-nav-container">
+      <app-home-side-nav
+        activedNav="all"
+        (navChange)="handleNavChanged($event)"
+      >
+      </app-home-side-nav>
+    </div>
+    <div class="scroll-wrapper p-4 pt-5 w-100">
+      <div class="title medium-font mb-4">
+        {{ title }}
+      </div>
+      <app-home-project-list></app-home-project-list>
+    </div>
+  </div>
+</div>

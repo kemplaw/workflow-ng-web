@@ -17,15 +17,19 @@
       formControlName="phone"
     >
   </div>
-  <div class="form-group d-flex align-items-center">
+  <div class="form-group input-group d-flex align-items-center">
     <input
       type="text"
-      class="form-control mr-2"
+      class="form-control"
       placeholder="验证码"
       formControlName="vertificationCode"
     >
-    <div class="flex-shrink-0 suffix-button-wrapper">
-      验证码
+    <div class="input-group-append">
+      <button
+        class="btn btn-primary"
+        type="button"
+        id="button-addon2"
+      >获取验证码</button>
     </div>
   </div>
   <button
