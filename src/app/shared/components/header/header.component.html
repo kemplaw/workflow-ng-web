@@ -3,7 +3,10 @@
   [class.shadow-sm]="shadow"
   [class.border-bottom]="borderBottom"
 >
-  <div class="logo medium-font">
+  <div
+    class="logo medium-font"
+    [routerLink]="['/home']"
+  >
     workflow
   </div>
   <input

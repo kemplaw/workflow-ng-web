@@ -1,3 +1,12 @@
+@mixin highLightEffect {
+  color: #212529;
+  &:not(.no-border) {
+    &::after {
+      border-color: #007bff;
+    }
+  }
+}
+
 .tab-list-wrapper {
   margin-left: -1rem;
   margin-right: -1rem;
@@ -10,14 +19,13 @@
   color: #999999;
 
   &:hover {
-    color: #212529;
-
-    &:not(.no-border) {
-      &::after {
-        border-color: #007bff;
-      }
-    }
+    @include highLightEffect;
   }
+
+  &.active {
+    @include highLightEffect;
+  }
+
   &:not(.no-border) {
     &::after {
       content: '';
