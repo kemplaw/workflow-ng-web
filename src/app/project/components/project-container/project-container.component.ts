@@ -21,6 +21,8 @@ export class ProjectContainerComponent implements OnInit {
       value: '3'
     }
   ]
+  activedTab: Tab = { label: '任务', value: '1' }
+
   constructor() {}
 
   ngOnInit() {}

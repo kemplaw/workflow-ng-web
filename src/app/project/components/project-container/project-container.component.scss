@@ -3,5 +3,7 @@
 }
 
 .scroll-wrapper {
-  overflow-y: auto;
+  overflow-y: hidden;
+  overflow-x: auto;
+  flex-wrap: nowrap;
 }
