@@ -4,9 +4,10 @@ import { RouterModule } from '@angular/router'
 import { ReactiveFormsModule } from '@angular/forms'
 import { HoverDirective } from './directives'
 import { HeaderComponent, TabsComponent } from './components'
+import { DialogModule } from './modules'
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, DialogModule],
   declarations: [HoverDirective, HeaderComponent, TabsComponent],
   exports: [
     CommonModule,
