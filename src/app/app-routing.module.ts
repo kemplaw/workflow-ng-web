@@ -12,8 +12,8 @@ const routes: Routes = [
     loadChildren: () => import('./home').then(m => m.HomeModule)
   },
   {
-    path: 'projects',
-    loadChildren: () => import('./project').then(m => m.ProjectModule)
+    path: 'tasks',
+    loadChildren: () => import('./tasks').then(m => m.TaskModule)
   }
 ]
 
