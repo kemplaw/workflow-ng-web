@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { Tab } from 'src/app/shared/components'
+import { Tab, NewTaskDialogComponent } from 'src/app/shared/components'
 import { DialogService } from 'src/app/shared'
-import { NewTaskComponent } from '../new-task'
 
 @Component({
   selector: 'app-task-container',
@@ -25,12 +24,12 @@ export class TaskContainerComponent implements OnInit {
   ]
   activedTab: Tab = { label: '任务', value: '1' }
 
-  constructor(private dialogService: DialogService<NewTaskComponent>) {}
+  constructor(private dialogService: DialogService<NewTaskDialogComponent>) {}
 
   ngOnInit() {}
 
   handleCreateTask() {
-    this.dialogService.open(NewTaskComponent, {
+    this.dialogService.open(NewTaskDialogComponent, {
       position: {
         left: '300px',
         top: '300px'

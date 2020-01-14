@@ -80,6 +80,7 @@ export class DomService {
     ).appendChild(
       this.createContainerElement('dialog-container').appendChild(domElement)
     )
+
     // 添加子节点
     this.document.body.appendChild(dialogElement)
 
