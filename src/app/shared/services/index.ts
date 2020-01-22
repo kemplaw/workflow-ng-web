@@ -1,2 +1,2 @@
 export * from './dialog.service'
-export * from './dom.service'
+export * from './overlay.service'

@@ -3,7 +3,8 @@ import {
   TaskContainerComponent,
   TaskListHeaderComponent,
   TaskItemComponent,
-  TaskListComponent
+  TaskListComponent,
+  NewTaskComponent
 } from './components'
 import { SharedModule } from '../shared'
 import { TaskRoutingModule } from './task-routing.module'
@@ -14,7 +15,9 @@ import { TaskRoutingModule } from './task-routing.module'
     TaskContainerComponent,
     TaskListHeaderComponent,
     TaskItemComponent,
-    TaskListComponent
-  ]
+    TaskListComponent,
+    NewTaskComponent
+  ],
+  entryComponents: [NewTaskComponent]
 })
 export class TaskModule {}

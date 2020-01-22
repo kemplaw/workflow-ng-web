@@ -3,20 +3,16 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { ReactiveFormsModule } from '@angular/forms'
 import { HoverDirective } from './directives'
-import {
-  HeaderComponent,
-  TabsComponent,
-  NewTaskDialogComponent
-} from './components'
-import { DialogModule } from './modules'
+import { HeaderComponent, TabsComponent, DialogComponent } from './components'
+import { DialogService, OverlayService } from './services'
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, DialogModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   declarations: [
     HoverDirective,
     HeaderComponent,
     TabsComponent,
-    NewTaskDialogComponent
+    DialogComponent
   ],
   exports: [
     CommonModule,
@@ -25,8 +21,8 @@ import { DialogModule } from './modules'
     HoverDirective,
     HeaderComponent,
     TabsComponent,
-    NewTaskDialogComponent
+    DialogComponent
   ],
-  entryComponents: [NewTaskDialogComponent]
+  providers: [DialogService, OverlayService]
 })
 export class SharedModule {}

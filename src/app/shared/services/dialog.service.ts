@@ -1,86 +1,67 @@
-import { Injectable, Type, Inject } from '@angular/core'
 import {
-  DomService,
-  DialogConfig,
-  DialogPosition,
-  DialogSize
-} from './dom.service'
-import { BehaviorSubject } from 'rxjs'
+  Injectable,
+  Inject,
+  Type,
+  ApplicationRef,
+  ComponentFactoryResolver,
+  Injector,
+  EmbeddedViewRef
+} from '@angular/core'
 import { DOCUMENT } from '@angular/common'
+import { OverlayService } from './overlay.service'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class DialogService<T> {
-  private dialogElem: HTMLElement
-  private data$ = new BehaviorSubject<object | null>(null)
-  private readonly overlayElementId = 'overlay-container'
-
   constructor(
-    private domService: DomService,
-    @Inject(DOCUMENT) private document: Document
+    @Inject(DOCUMENT) private _document: Document,
+    private _injector: Injector,
+    private _overlay: OverlayService,
+    private appRef: ApplicationRef,
+    private resolver: ComponentFactoryResolver
   ) {}
 
-  open(component: Type<T>, dialogConfig: DialogConfig) {
-    const dialogElem = this.domService.appendComponentToAppTree<T>(
-      component,
-      dialogConfig
-    )
+  open(componentRef: Type<T>, config?: any) {
+    // 1. 创建 overlay 容器
+    const overlayRef = this._createOverlay()
 
-    this.dialogElem = dialogElem
+    // 2. 添加 dialog 容器到 overlay 下的 pane 容器中
+    const dialogContainer = this._attachDialogContainer(overlayRef)
 
-    this.setElementStyle(dialogElem, dialogConfig.position, dialogConfig.size)
+    // 3. 添加用户自定义的 dialog 内容到 dialog 容器之中
+    const dialogRef = this._attachDialogContent(componentRef, dialogContainer)
 
-    this.toggleAll()
-
-    this.data$.next(null)
+    return dialogRef
   }
 
-  close(data: object | null) {
-    this.domService.removeComponent()
-    this.toggleAll()
-    this.data$.next(data)
-
-    return this.data$.asObservable()
+  // 创建 overlay
+  private _createOverlay(): HTMLElement {
+    return this._overlay.create()
   }
 
-  private toggleAll() {
-    const overlayElem = this.document.getElementById(this.overlayElementId)
+  // 添加 dialog 容器
+  private _attachDialogContainer(overlayRef: HTMLElement): HTMLElement {
+    const dialogContainer = this._document.createElement('div')
 
-    this.toggleElementVisibility(this.dialogElem)
-    this.toggleElementVisibility(overlayElem)
+    dialogContainer.classList.add('dialog-container')
+
+    overlayRef.appendChild(dialogContainer)
+
+    return dialogContainer
   }
 
-  private toggleElementVisibility(elem: HTMLElement) {
-    if (!elem) return
+  private _attachDialogContent<T>(
+    componentRef: Type<T>,
+    dialogContainer: HTMLElement
+  ): any {
+    const component = this.resolver
+      .resolveComponentFactory(componentRef)
+      .create(this._injector)
 
-    if (elem.classList.contains('show')) {
-      elem.classList.remove('show')
-      elem.classList.add('hidden')
+    this.appRef.attachView(component.hostView)
 
-      return
-    }
+    const componentHtmlElement = (component.hostView as EmbeddedViewRef<any>)
+      .rootNodes[0] as HTMLElement
 
-    if (elem.classList.contains('hidden')) {
-      elem.classList.remove('hidden')
-      elem.classList.add('show')
-    }
-  }
-
-  // 设置元素位置以及大小
-  private setElementStyle(
-    targetElem: HTMLElement,
-    position: DialogPosition,
-    size: DialogSize
-  ) {
-    if (!targetElem) return null
-
-    const { top, left } = position
-    const { width, height } = size
-
-    targetElem.style.top = top
-    targetElem.style.left = left
-    targetElem.style.width = width
-    targetElem.style.height = height
+    dialogContainer.appendChild(componentHtmlElement)
   }
 }
