@@ -9,6 +9,9 @@ export class OverlayService {
 
   create(): HTMLElement {
     const host = this._document.createElement('div')
+
+    host.classList.add('overlay-wrapper')
+
     const pane = this._createPanelContainer(host)
 
     this.getContainerElement().appendChild(host)

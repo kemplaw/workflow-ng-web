@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 
 @Component({
   selector: 'app-dialog',
@@ -6,10 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
+  @Input() title?: string = '标题'
+  @Input() showFooter?: boolean = false
+  visible: boolean = true
 
-  constructor() { }
+  @Output() close = new EventEmitter()
 
-  ngOnInit() {
+  constructor() {}
+
+  ngOnInit() {}
+
+  // 点击关闭按钮的回调
+  handleClickCloseButton() {
+    this.visible = false
+    this.close.emit()
   }
-
 }

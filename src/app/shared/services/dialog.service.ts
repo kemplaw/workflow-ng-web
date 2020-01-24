@@ -10,6 +10,15 @@ import {
 import { DOCUMENT } from '@angular/common'
 import { OverlayService } from './overlay.service'
 
+// Dialog 配置
+export interface DialogConfig {
+  data?: any
+  width: string
+  height: string
+  top?: string
+  left?: string
+}
+
 @Injectable()
 export class DialogService<T> {
   constructor(
@@ -20,7 +29,7 @@ export class DialogService<T> {
     private resolver: ComponentFactoryResolver
   ) {}
 
-  open(componentRef: Type<T>, config?: any) {
+  open(componentRef: Type<T>, config?: DialogConfig) {
     // 1. 创建 overlay 容器
     const overlayRef = this._createOverlay()
 
