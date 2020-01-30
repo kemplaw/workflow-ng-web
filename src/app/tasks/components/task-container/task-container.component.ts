@@ -1,7 +1,12 @@
-import { Component, OnInit } from '@angular/core'
-import { Tab } from 'src/app/shared/components'
-import { DialogService } from 'src/app/shared'
-import { NewTaskComponent } from '../new-task'
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ComponentRef,
+  ElementRef
+} from '@angular/core'
+import { Tab, DialogComponent } from 'src/app/shared/components'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 @Component({
   selector: 'app-task-container',
@@ -9,6 +14,8 @@ import { NewTaskComponent } from '../new-task'
   styleUrls: ['./task-container.component.scss']
 })
 export class TaskContainerComponent implements OnInit {
+  createDialogVisible: string = 'hide'
+  createTaskDialogForm: FormGroup
   taskTabs: Tab[] = [
     {
       label: '任务',
@@ -25,13 +32,16 @@ export class TaskContainerComponent implements OnInit {
   ]
   activedTab: Tab = { label: '任务', value: '1' }
 
-  constructor(private dialog: DialogService<NewTaskComponent>) {}
+  constructor(private _formBuilder: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createTaskDialogForm = this._formBuilder.group({
+      title: ['', Validators.required],
+      users: []
+    })
+  }
 
   handleCreateTask() {
-    const dialogRef = this.dialog.open(NewTaskComponent)
-
-    console.log(dialogRef)
+    this.createDialogVisible = 'show'
   }
 }

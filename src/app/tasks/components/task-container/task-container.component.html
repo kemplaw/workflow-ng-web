@@ -36,4 +36,22 @@
       </app-task-list>
     </div>
   </div>
+
+  <app-dialog
+    title="创建任务"
+    [visible]="createDialogVisible"
+  >
+    <form [formGroup]="createTaskDialogForm">
+      <div class="form-group">
+        <label for="">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="任务标题"
+          >
+          <small class="form-text text-muted">请输入任务标题</small>
+        </label>
+      </div>
+    </form>
+  </app-dialog>
 </div>

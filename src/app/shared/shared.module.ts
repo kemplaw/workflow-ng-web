@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router'
 import { ReactiveFormsModule } from '@angular/forms'
 import { HoverDirective } from './directives'
 import { HeaderComponent, TabsComponent, DialogComponent } from './components'
-import { DialogService, OverlayService } from './services'
 
 @NgModule({
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
@@ -22,7 +21,6 @@ import { DialogService, OverlayService } from './services'
     HeaderComponent,
     TabsComponent,
     DialogComponent
-  ],
-  providers: [DialogService, OverlayService]
+  ]
 })
 export class SharedModule {}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
+import { Component, OnInit, Input, OnDestroy } from '@angular/core'
 
 @Component({
   selector: 'app-dialog',
@@ -6,19 +6,18 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit {
-  @Input() title?: string = '标题'
-  @Input() showFooter?: boolean = false
-  visible: boolean = true
-
-  @Output() close = new EventEmitter()
+  @Input() title: string // dialog 标题
+  @Input() dialogId: string = 'dialog-hook' // 当前弹窗的 id
+  @Input()
+  public set visible(v: string) {
+    this._toggleDialog(v)
+  } // 设置 dialog 显示/隐藏
 
   constructor() {}
 
   ngOnInit() {}
 
-  // 点击关闭按钮的回调
-  handleClickCloseButton() {
-    this.visible = false
-    this.close.emit()
+  private _toggleDialog(visible: string) {
+    ;($(`#${this.dialogId}`) as any).modal(visible)
   }
 }

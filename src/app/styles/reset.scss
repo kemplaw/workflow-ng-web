@@ -131,3 +131,7 @@ table {
 [ng-reflect-router-link] {
   outline: none;
 }
+
+.modal.fade:not(.show) {
+  z-index: -1;
+}
