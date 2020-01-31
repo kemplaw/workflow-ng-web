@@ -44,4 +44,8 @@ export class TaskContainerComponent implements OnInit {
   handleCreateTask() {
     this.createDialogVisible = 'show'
   }
+
+  handleDateChanged(date: string) {
+    console.log(date)
+  }
 }

@@ -7,14 +7,14 @@ import {
   EventEmitter
 } from '@angular/core'
 
-type ModalParamStringTypeMap =
+export type ModalParamStringTypeMap =
   | 'toggle'
   | 'show'
   | 'hide'
   | 'handleUpdate'
   | 'dispose'
 
-interface ModalMethod {
+export interface ModalMethod {
   (p: ModalParamStringTypeMap | object): void
 }
 
@@ -28,7 +28,10 @@ interface BootstrapDialogDomRef extends JQuery<HTMLElement> {
   styleUrls: ['./dialog.component.scss']
 })
 export class DialogComponent implements OnInit, AfterViewInit {
+  @Output() close = new EventEmitter() // 关闭事件发射
   @Output() visibleChange = new EventEmitter() // 发射 dialog 的 visible 变化事件
+  @Input() width: string = '' // dialog 容器宽度
+  @Input() customFooter: boolean = false // 是否启用自定义底部按钮
   @Input() verticallyCentered: boolean // 是否垂直居中
   @Input() scrollable: boolean // 是否可滚动
   @Input() title: string // dialog 标题
@@ -79,5 +82,9 @@ export class DialogComponent implements OnInit, AfterViewInit {
       this.visible = visible
       this.visibleChange.emit(visible)
     })
+  }
+
+  handleConfirm() {
+    this.close.emit()
   }
 }

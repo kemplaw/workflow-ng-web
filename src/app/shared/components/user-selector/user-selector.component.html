@@ -1,0 +1,27 @@
+<div class="dropdown">
+  <div
+    id="dropdown-trigger"
+    class="avatar-wrapper dropdown-toggle d-flex align-items-center"
+    data-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <span class="avatar mr-2"></span>
+    <span class="text text-muted">待认领</span>
+  </div>
+  <div
+    class="dropdown-menu p-3"
+    aria-labelledby="dropdown-trigger"
+  >
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="搜索"
+      >
+    </div>
+    <div class="form-group">
+      <label class="mb-3">执行者</label>
+      <app-user-list></app-user-list>
+    </div>
+  </div>
+</div>

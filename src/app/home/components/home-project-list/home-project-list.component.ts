@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { ModalParamStringTypeMap } from 'src/app/shared/components'
+import { FormGroup } from '@angular/forms'
 
 export interface Project {
   id?: string
@@ -13,6 +15,8 @@ export interface Project {
   styleUrls: ['./home-project-list.component.scss']
 })
 export class HomeProjectListComponent implements OnInit {
+  createProjectDialogVisible: ModalParamStringTypeMap = 'hide'
+  createProjectForm: FormGroup
   projects: Project[] = [
     {
       title: '测试项目',
@@ -23,4 +27,8 @@ export class HomeProjectListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {}
+
+  handleClick() {
+    this.createProjectDialogVisible = 'show'
+  }
 }

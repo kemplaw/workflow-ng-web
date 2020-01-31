@@ -10,6 +10,7 @@
     role="document"
     class="modal-dialog"
     [ngClass]="dialogClassList"
+    [style.width]="width"
   >
     <div class="modal-content">
       <div class="modal-header">
@@ -31,17 +32,25 @@
       <div class="modal-body">
         <ng-content></ng-content>
       </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >取消</button>
-        <button
-          type="button"
-          class="btn btn-primary"
-        >确定</button>
-      </div>
+      <ng-content
+        *ngIf="customFooter else elseTemplate"
+        select="[name]=footer"
+      ></ng-content>
+
+      <ng-template #elseTemplate>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+          >取消</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="handleConfirm()"
+          >确定</button>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

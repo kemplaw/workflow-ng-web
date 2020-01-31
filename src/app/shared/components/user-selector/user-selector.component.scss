@@ -1,0 +1,20 @@
+.dropdown {
+  .avatar-wrapper {
+    cursor: pointer;
+    .avatar {
+      flex: 0 0 35px;
+      width: 35px;
+      height: 35px;
+      background-color: #e3e3e3;
+      border-radius: 50%;
+    }
+
+    .text {
+      font-size: 14px;
+    }
+  }
+
+  .dropdown-menu {
+    min-width: 350px;
+  }
+}

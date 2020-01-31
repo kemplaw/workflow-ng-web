@@ -3,7 +3,14 @@ import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
 import { ReactiveFormsModule } from '@angular/forms'
 import { HoverDirective } from './directives'
-import { HeaderComponent, TabsComponent, DialogComponent } from './components'
+import {
+  HeaderComponent,
+  TabsComponent,
+  DialogComponent,
+  UserSelectorComponent,
+  UserListComponent
+} from './components'
+import { TimeRangePickerComponent } from './components/time-range-picker/time-range-picker.component'
 
 @NgModule({
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
@@ -11,7 +18,10 @@ import { HeaderComponent, TabsComponent, DialogComponent } from './components'
     HoverDirective,
     HeaderComponent,
     TabsComponent,
-    DialogComponent
+    DialogComponent,
+    UserSelectorComponent,
+    UserListComponent,
+    TimeRangePickerComponent
   ],
   exports: [
     CommonModule,
@@ -20,7 +30,9 @@ import { HeaderComponent, TabsComponent, DialogComponent } from './components'
     HoverDirective,
     HeaderComponent,
     TabsComponent,
-    DialogComponent
+    DialogComponent,
+    UserSelectorComponent,
+    TimeRangePickerComponent
   ]
 })
 export class SharedModule {}
