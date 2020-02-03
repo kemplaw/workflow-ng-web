@@ -36,6 +36,7 @@ export class DialogComponent implements OnInit, AfterViewInit {
   @Input() scrollable: boolean // 是否可滚动
   @Input() title: string // dialog 标题
   @Input() dialogId: string = 'dialog-hook' // 当前弹窗的 id
+  @Input() disabled: boolean = true // 默认的确认键是否位禁用状态
   @Input()
   public set visible(v: ModalParamStringTypeMap) {
     this._visible = v

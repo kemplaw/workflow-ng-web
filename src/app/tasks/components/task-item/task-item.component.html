@@ -3,7 +3,10 @@
   class="card shadow-sm"
 >
   <div class="card-body d-flex align-items-center">
-    <input type="checkbox">
-    <span class="title ml-2">标题</span>
+    <input
+      type="checkbox"
+      [checked]="task.completed"
+    >
+    <span class="title ml-2">{{ task.name }}</span>
   </div>
 </div>

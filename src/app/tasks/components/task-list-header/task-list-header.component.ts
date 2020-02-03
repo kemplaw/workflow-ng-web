@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core'
 
 @Component({
   selector: 'app-task-list-header',
@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./task-list-header.component.css']
 })
 export class TaskListHeaderComponent implements OnInit {
+  @Input() name: string // 任务状态标题
+  @Input() amount: number // 任务数量
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

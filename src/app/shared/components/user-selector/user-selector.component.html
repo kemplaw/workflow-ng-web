@@ -6,7 +6,7 @@
     aria-expanded="false"
   >
     <span class="avatar mr-2"></span>
-    <span class="text text-muted">待认领</span>
+    <span class="text text-muted">{{ username }}</span>
   </div>
   <div
     class="dropdown-menu p-3"
@@ -21,7 +21,10 @@
     </div>
     <div class="form-group">
       <label class="mb-3">执行者</label>
-      <app-user-list></app-user-list>
+      <app-user-list
+        [users]="users"
+        (change)="handleChangeUser($event)"
+      ></app-user-list>
     </div>
   </div>
 </div>

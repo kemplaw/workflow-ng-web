@@ -6,8 +6,22 @@ import {
   AfterViewInit,
   Output,
   EventEmitter,
-  Input
+  Input,
+  forwardRef
 } from '@angular/core'
+import { Subject } from 'rxjs'
+import { startWith } from 'rxjs/operators'
+import {
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS,
+  FormControl
+} from '@angular/forms'
+
+interface DateObj {
+  start: string
+  end: string
+}
 
 @Component({
   selector: 'app-time-range-picker',
@@ -18,20 +32,67 @@ import {
       style="width: 305px;"
     />
   `,
-  styles: []
+  styles: [],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      // 元数据的时候 组件还未创建， 使用forwardref 可以等组件创建完成之后再引入
+      useExisting: forwardRef(() => TimeRangePickerComponent),
+      multi: true // 处理多对一
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => TimeRangePickerComponent),
+      multi: true // 处理多对一
+    }
+  ]
 })
-export class TimeRangePickerComponent implements OnInit, AfterViewInit {
+export class TimeRangePickerComponent
+  implements OnInit, AfterViewInit, ControlValueAccessor {
   @ViewChild('picker', { static: true }) private _picker: ElementRef
   @Output('change') changedDate = new EventEmitter()
 
   @Input() separator: string = ' 至 ' // 分隔符
 
+  private _selectedDate: DateObj
+  private _date = new Subject<DateObj>()
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    const date$ = this._date
+      .asObservable()
+      .pipe(startWith({ start: '', end: '' }))
+
+    date$.subscribe(date => {
+      this._selectedDate = date
+      this.propagateChange(date)
+    })
+  }
 
   ngAfterViewInit() {
     this._initTimeRangePicker()
+  }
+
+  private propagateChange = (_: any) => {}
+
+  writeValue(obj: any): void {
+    this._date.next(obj)
+  }
+  registerOnChange(fn: any): void {
+    this.propagateChange = fn
+  }
+  registerOnTouched(fn: any): void {}
+  validate(c: FormControl): { [key: string]: any } {
+    const valid = this._selectedDate
+      ? null
+      : {
+          dateInvalid: {
+            valid: false
+          }
+        }
+
+    return valid
   }
 
   // 初始化日期选择器
@@ -69,13 +130,16 @@ export class TimeRangePickerComponent implements OnInit, AfterViewInit {
       }
     })
 
-    elem.on('apply.daterangepicker', ({ target }) =>
-      this.changedDate.emit(this._dateStrFormatter(target.value))
-    )
+    elem.on('apply.daterangepicker', e => {
+      const formattedDateData = this._dateStrFormatter(e.target.value)
+
+      this._date.next(formattedDateData)
+      this.changedDate.emit(formattedDateData)
+    })
   }
 
   // 格式化原始日期数据
-  private _dateStrFormatter(dateStr: string): { start: string; end: string } {
+  private _dateStrFormatter(dateStr: string): DateObj {
     if (!dateStr) return { start: '', end: '' }
 
     const [start, end] = dateStr.trim().split(this.separator)

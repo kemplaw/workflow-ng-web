@@ -3,9 +3,9 @@
 >
   <div class="title-wrapper d-flex align-items-center">
     <div class="title mr-2">
-      测试标题
+      {{ name }}
     </div>
-    <span class="amount">1</span>
+    <span class="amount">{{ amount || 0 }}</span>
   </div>
   <i
     class="fa fa-bars"

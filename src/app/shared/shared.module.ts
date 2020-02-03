@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterModule } from '@angular/router'
-import { ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { HoverDirective } from './directives'
 import {
   HeaderComponent,
@@ -13,7 +13,7 @@ import {
 import { TimeRangePickerComponent } from './components/time-range-picker/time-range-picker.component'
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ReactiveFormsModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
   declarations: [
     HoverDirective,
     HeaderComponent,
@@ -26,6 +26,7 @@ import { TimeRangePickerComponent } from './components/time-range-picker/time-ra
   exports: [
     CommonModule,
     RouterModule,
+    FormsModule,
     ReactiveFormsModule,
     HoverDirective,
     HeaderComponent,
