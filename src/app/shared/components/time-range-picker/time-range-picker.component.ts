@@ -3,11 +3,11 @@ import {
   OnInit,
   ViewChild,
   ElementRef,
-  AfterViewInit,
   Output,
   EventEmitter,
   Input,
-  forwardRef
+  forwardRef,
+  AfterContentInit
 } from '@angular/core'
 import { Subject } from 'rxjs'
 import { startWith } from 'rxjs/operators'
@@ -48,7 +48,7 @@ interface DateObj {
   ]
 })
 export class TimeRangePickerComponent
-  implements OnInit, AfterViewInit, ControlValueAccessor {
+  implements OnInit, AfterContentInit, ControlValueAccessor {
   @ViewChild('picker', { static: true }) private _picker: ElementRef
   @Output('change') changedDate = new EventEmitter()
 
@@ -59,18 +59,11 @@ export class TimeRangePickerComponent
 
   constructor() {}
 
-  ngOnInit() {
-    const date$ = this._date
-      .asObservable()
-      .pipe(startWith({ start: '', end: '' }))
+  ngOnInit() {}
 
-    date$.subscribe(date => {
-      this._selectedDate = date
-      this.propagateChange(date)
-    })
-  }
-
-  ngAfterViewInit() {
+  ngAfterContentInit(): void {
+    //Called after ngOnInit when the component's or directive's content has been initialized.
+    //Add 'implements AfterContentInit' to the class.
     this._initTimeRangePicker()
   }
 
@@ -79,10 +72,13 @@ export class TimeRangePickerComponent
   writeValue(obj: any): void {
     this._date.next(obj)
   }
+
   registerOnChange(fn: any): void {
     this.propagateChange = fn
   }
+
   registerOnTouched(fn: any): void {}
+
   validate(c: FormControl): { [key: string]: any } {
     const valid = this._selectedDate
       ? null
@@ -130,6 +126,8 @@ export class TimeRangePickerComponent
       }
     })
 
+    this._initObservableData(elem[0])
+
     elem.on('apply.daterangepicker', e => {
       const formattedDateData = this._dateStrFormatter(e.target.value)
 
@@ -148,5 +146,17 @@ export class TimeRangePickerComponent
       start,
       end
     }
+  }
+
+  // 初始化表单数据
+  private _initObservableData(elem: HTMLInputElement) {
+    const startDate = this._dateStrFormatter(elem.value)
+
+    const date$ = this._date.asObservable().pipe(startWith(startDate))
+
+    date$.subscribe(date => {
+      this._selectedDate = date
+      this.propagateChange(date)
+    })
   }
 }

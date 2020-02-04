@@ -43,19 +43,21 @@
         </app-task-list>
       </div>
     </ng-container>
-    <div
-      id="task-status-add-button-hook"
-      class="text-muted d-flex align-items-center col-auto"
-      style="height: 24px; cursor: pointer;"
-      data-toggle="dropdown"
-      aria-haspopup="true"
-      aria-expanded="false"
-    >
-      <i class="fa fa-plus mr-2"></i>
-      <span>添加状态</span>
-    </div>
+
+    <!-- 添加按钮 -->
 
     <div class="dropdown">
+      <div
+        id="task-status-add-button-hook"
+        class="text-muted d-flex align-items-center col-auto"
+        style="cursor: pointer;"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <i class="fa fa-plus mr-2"></i>
+        <span>添加状态</span>
+      </div>
       <div
         class="dropdown-menu p-3"
         aria-labelledby="task-status-add-button-hook"

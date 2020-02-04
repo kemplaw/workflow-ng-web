@@ -15,7 +15,13 @@ import { TaskStatus } from 'src/app/shared'
   styleUrls: ['./task-container.component.scss']
 })
 export class TaskContainerComponent implements OnInit {
-  taskStatusList: TaskStatus[] = [] // 不同任务状态列表
+  taskStatusList: TaskStatus[] = [
+    {
+      id: '1',
+      name: '待处理',
+      Tasks: []
+    }
+  ] // 不同任务状态列表
   taskDialogVisible: string = 'hide'
   addedTaskStatusName: string // 要添加的任务状态名称
   taskDialogForm: FormGroup
