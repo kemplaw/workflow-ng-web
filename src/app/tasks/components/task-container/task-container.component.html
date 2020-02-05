@@ -36,7 +36,7 @@
           <button
             type="button"
             class="mt-3 btn btn-primary d-flex align-items-center justify-content-center"
-            (click)="handleCreateTask()"
+            (click)="handleCreateTask(taskStatus)"
           >
             <i>添加</i>
           </button>
@@ -83,7 +83,7 @@
   <app-dialog
     title="创建任务"
     [(visible)]="taskDialogVisible"
-    (close)="handleTaskDialogClose()"
+    (close)="handleConfirmTaskForm()"
     [disabled]="!taskDialogForm.valid"
   >
     <form
