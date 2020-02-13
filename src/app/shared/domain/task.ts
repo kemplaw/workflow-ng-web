@@ -1,5 +1,5 @@
 export interface Task {
-  id?: string
+  id?: number
   name: string // 任务名称
   completed: boolean // 任务是否完成
   priority: string // 任务优先级
@@ -12,5 +12,5 @@ export interface Task {
 export interface TaskStatus {
   id: string
   name: string
-  Tasks: Task[]
+  tasks: Task[]
 }

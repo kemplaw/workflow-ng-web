@@ -67,14 +67,14 @@ export class TimeRangePickerComponent
     this._initTimeRangePicker()
   }
 
-  private propagateChange = (_: any) => {}
+  private _propagateChange = (_: any) => {}
 
   writeValue(obj: any): void {
     this._date.next(obj)
   }
 
   registerOnChange(fn: any): void {
-    this.propagateChange = fn
+    this._propagateChange = fn
   }
 
   registerOnTouched(fn: any): void {}
@@ -156,7 +156,15 @@ export class TimeRangePickerComponent
 
     date$.subscribe(date => {
       this._selectedDate = date
-      this.propagateChange(date)
+      this._propagateChange(date)
+      this._setInputElemValue(elem, date)
     })
+  }
+
+  // 设置 dom 中 value 的值
+  private _setInputElemValue(elem: HTMLInputElement, value: DateObj) {
+    const { start, end } = value
+
+    elem.value = `${start}${this.separator}${end}`
   }
 }

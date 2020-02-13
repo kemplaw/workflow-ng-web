@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core'
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core'
 import { Task } from 'src/app/shared'
 
 @Component({
@@ -9,7 +9,13 @@ import { Task } from 'src/app/shared'
 export class TaskItemComponent implements OnInit {
   @Input() task: Task // 任务数据
 
+  @Output() click = new EventEmitter()
+
   constructor() {}
 
   ngOnInit() {}
+
+  handleClick() {
+    this.click.emit()
+  }
 }

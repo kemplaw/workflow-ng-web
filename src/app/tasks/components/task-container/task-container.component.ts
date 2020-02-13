@@ -19,7 +19,7 @@ export class TaskContainerComponent implements OnInit {
     {
       id: '1',
       name: '待处理',
-      Tasks: []
+      tasks: []
     }
   ] // 不同任务状态列表
   taskDialogVisible: string = 'hide'
@@ -40,9 +40,11 @@ export class TaskContainerComponent implements OnInit {
     }
   ]
   activedTab: Tab = { label: '任务', value: '1' }
+  taskDialogTitle: string = '创建任务' // 任务弹窗标题
 
+  private _newTaskId: number = 1 // 任务 id
   private _currentTaskStatus: TaskStatus // 当前的任务状态数据
-  private _currentTask: Task // 当前选中的任务数据
+  private _currentTaskId: number // 当前选中的任务 id
 
   constructor(private _formBuilder: FormBuilder) {}
 
@@ -57,6 +59,7 @@ export class TaskContainerComponent implements OnInit {
   }
 
   handleCreateTask(taskStatus: TaskStatus) {
+    this.taskDialogTitle = '创建任务'
     this.taskDialogVisible = 'show'
     this._currentTaskStatus = taskStatus
   }
@@ -73,7 +76,6 @@ export class TaskContainerComponent implements OnInit {
     } = this.taskDialogForm.value
 
     const newTaskData: Task = {
-      id: '1',
       name: title,
       startTime: date.start,
       endTime: date.end,
@@ -83,9 +85,30 @@ export class TaskContainerComponent implements OnInit {
       completed: false
     }
 
-    this.taskStatusList
-      .find(taskStatus => taskStatus.id === id)
-      .Tasks.push(newTaskData)
+    if (this.taskDialogTitle === '创建任务') {
+      newTaskData.id = this._newTaskId++
+
+      this.taskStatusList
+        .find(taskStatus => taskStatus.id === id)
+        .tasks.push(newTaskData)
+    } else {
+      newTaskData.id = this._currentTaskId
+
+      const targetTaskStatusList = this.taskStatusList.find(
+        ({ id: taskStatusId }) => taskStatusId === id
+      )
+      const targetTaskIndex = targetTaskStatusList.tasks.findIndex(
+        ({ id: taskId }) => taskId === this._currentTaskId
+      )
+
+      targetTaskStatusList.tasks = [
+        ...targetTaskStatusList.tasks.slice(0, targetTaskIndex),
+        newTaskData,
+        ...targetTaskStatusList.tasks.slice(targetTaskIndex + 1)
+      ]
+    }
+
+    this.taskDialogVisible = 'hide'
   }
 
   // 点击添加任务状态按钮
@@ -93,9 +116,28 @@ export class TaskContainerComponent implements OnInit {
     const taskObj: TaskStatus = {
       id: '1',
       name: this.addedTaskStatusName,
-      Tasks: []
+      tasks: []
     }
 
     this.taskStatusList.push(taskObj)
+  }
+
+  handleClickTaskItem(task: Task) {
+    const { name, principal, priority, startTime, endTime, remarks } = task
+
+    this.taskDialogForm.patchValue({
+      title: name,
+      principal,
+      priority,
+      date: {
+        start: startTime,
+        end: endTime
+      },
+      remarks
+    })
+
+    this._currentTaskId = task.id
+    this.taskDialogTitle = '编辑任务'
+    this.taskDialogVisible = 'show'
   }
 }
