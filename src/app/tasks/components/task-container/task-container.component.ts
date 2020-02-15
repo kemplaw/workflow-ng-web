@@ -42,6 +42,9 @@ export class TaskContainerComponent implements OnInit {
   activedTab: Tab = { label: '任务', value: '1' }
   taskDialogTitle: string = '创建任务' // 任务弹窗标题
 
+  taskHeaderTitle: string // 任务头部状态名称
+  taskHeaderDialog: string = 'hide' // 任务状态修改 dialog
+
   private _newTaskId: number = 1 // 任务 id
   private _currentTaskStatus: TaskStatus // 当前的任务状态数据
   private _currentTaskId: number // 当前选中的任务 id
@@ -139,5 +142,15 @@ export class TaskContainerComponent implements OnInit {
     this._currentTaskId = task.id
     this.taskDialogTitle = '编辑任务'
     this.taskDialogVisible = 'show'
+  }
+
+  handleChangeTaskStatusName(name: string, status: TaskStatus) {
+    status.name = name
+  }
+
+  handleDeleteTaskStatus(status: TaskStatus) {
+    this.taskStatusList.splice(
+      this.taskStatusList.findIndex(({ name }) => name === status.name)
+    )
   }
 }

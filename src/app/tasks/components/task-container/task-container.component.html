@@ -21,6 +21,8 @@
           <app-task-list-header
             [name]="taskStatus.name"
             [amount]="taskStatus.tasks.length"
+            (change)="handleChangeTaskStatusName($event, taskStatus)"
+            (delete)="handleDeleteTaskStatus(taskStatus)"
           ></app-task-list-header>
           <div
             class="task-list-wrapper"
@@ -138,4 +140,14 @@
       </div>
     </form>
   </app-dialog>
+
+  <app-dialog [(visible)]="taskHeaderDialog">
+    <input
+      type="text"
+      class="form-control w-100"
+      [(ngModel)]="taskHeaderTitle"
+    >
+    <button class="btn btn-primary w-100">确定</button>
+  </app-dialog>
+
 </div>

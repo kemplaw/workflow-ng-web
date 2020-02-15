@@ -1,0 +1,24 @@
+.dropdown-menu {
+  width: 200px;
+}
+
+.dropdown-item {
+  line-height: 35px;
+  cursor: pointer;
+}
+
+.dropdown-header-wrapper {
+  position: relative;
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+  font-size: 16px;
+
+  .fa-angle-left {
+    position: absolute;
+    top: -9px;
+    left: 3px;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+  }
+}

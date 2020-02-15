@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { ModalParamStringTypeMap } from 'src/app/shared/components'
-import { FormGroup } from '@angular/forms'
+import { FormGroup, FormBuilder, Validators } from '@angular/forms'
 
 export interface Project {
-  id?: string
+  id?: number
   title: string
   collected: boolean
   desc?: string
@@ -19,16 +19,36 @@ export class HomeProjectListComponent implements OnInit {
   createProjectForm: FormGroup
   projects: Project[] = [
     {
+      id: 1,
       title: '测试项目',
       desc: '这是一个测试项目',
       collected: false
     }
   ] // 项目列表
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.createProjectForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      desc: ['']
+    })
+  }
 
   handleClick() {
     this.createProjectDialogVisible = 'show'
+  }
+
+  handleCreateProject() {
+    const { name: title, desc } = this.createProjectForm.value
+
+    const newProject = { id: 2, title, desc, collected: false }
+
+    this.projects.push(newProject)
+    this._resetCreateForm()
+  }
+
+  private _resetCreateForm() {
+    this.createProjectForm.reset()
+    this.createProjectDialogVisible = 'hide'
   }
 }

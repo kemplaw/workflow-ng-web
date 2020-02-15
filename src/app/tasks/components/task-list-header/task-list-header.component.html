@@ -7,8 +7,80 @@
     </div>
     <span class="amount">{{ amount || 0 }}</span>
   </div>
-  <i
-    class="fa fa-bars"
-    style="cursor: pointer;"
-  ></i>
+
+  <div class="dropdown">
+    <i
+      id="dropdownMenuButton"
+      class="fa fa-bars"
+      data-toggle="dropdown"
+      aria-haspopup="false"
+      aria-expanded="false"
+      style="cursor: pointer;"
+    ></i>
+    <div
+      class="dropdown-menu"
+      aria-labelledby="dropdownMenuButton"
+      (click)="handleClickDropdownMenu($event)"
+    >
+      <div
+        class="dropdown-header-wrapper border-bottom d-flex align-items-center justify-content-center"
+      >
+        <i
+          class="fa fa-angle-left"
+          [hidden]="!dropdownType"
+          (click)="handleResetDropdownMenu()"
+        ></i>
+        <span>{{ dropdownTitle }}</span>
+      </div>
+
+      <ng-container [ngSwitch]="dropdownType">
+        <div
+          *ngSwitchCase="'edit'"
+          class="edit-wrapper p-3"
+        >
+          <input
+            [(ngModel)]="editResult"
+            type="text"
+            class="form-control"
+            placeholder="修改名称"
+          >
+          <button
+            (click)="handleConfirmEdit($event)"
+            class="btn btn-primary w-100 mt-3"
+          >确定</button>
+        </div>
+
+        <div
+          *ngSwitchCase="'delete'"
+          class="delete-wrapper p-3"
+        >
+          <div class="desc">确定删除吗？</div>
+          <button
+            (click)="handleConfirmDelete()"
+            class="btn btn-primary w-100 mt-3"
+          >确定</button>
+        </div>
+
+        <ng-container *ngSwitchDefault>
+          <div
+            class="dropdown-item"
+            (click)="handleEdit($event)"
+          >
+            <i class="fa fa-edit mr-2"></i>
+            <span>编辑名称</span>
+          </div>
+          <div
+            class="dropdown-item"
+            (click)="handleDelete($event)"
+          >
+            <i class="fa fa-trash-o mr-2"></i>
+            <span>删除状态</span>
+          </div>
+        </ng-container>
+
+      </ng-container>
+
+    </div>
+  </div>
+
 </div>

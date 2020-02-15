@@ -16,6 +16,28 @@
   >
   <div class="actions-list-wrapper d-flex align-items-center">
     <span>我的</span>
-    <div class="avatar rounded-circle ml-4"></div>
+    <div class="dropdown">
+      <div
+        class="avatar rounded-circle ml-4"
+        id="dropdownMenuButton"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      ></div>
+
+      <div
+        class="dropdown-menu"
+        aria-labelledby="dropdownMenuButton"
+      >
+        <div
+          [routerLink]="['/my']"
+          class="dropdown-item"
+        >个人中心</div>
+        <div
+          (click)="handleLogout()"
+          class="dropdown-item"
+        >退出登录</div>
+      </div>
+    </div>
   </div>
 </div>
